@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'python -m /app/main.py'
+                sh 'python app\main.py'
             }
         }
     }
