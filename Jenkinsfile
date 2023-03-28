@@ -13,7 +13,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+                timeout(time: 50, unit: 'SECONDS') {
                 sh "python app/main.py"
+                }
             }
         }
     }
