@@ -1,29 +1,21 @@
 pipeline {
-
     agent any
-    
     stages {
-    
-        stage("build") {
-        
+        stage('Build') {
             steps {
-                echo 'building the application...'
+                sh 'pip install -r requirements.txt'
             }
         }
-        
-        stage("test") {
-        
+        stage('Test') {
             steps {
-                echo 'testing the application...'
+                sh 'pytest'
             }
         }
-        
-        stage("deploy") {
-        
+        stage('Deploy') {
             steps {
-                echo 'deplying the application...'
+                sh 'cd /app'
+                sh 'python -m main.py'
             }
         }
-    }   
+    }
 }
-
