@@ -6,6 +6,12 @@ pipeline {
                 sh 'pip install -r requirements.txt'
             }
         }
+        stage('Compile') {
+            steps {
+                sh 'python -m py_compile app/main.py'
+                sh 'find . -name "*.pyc"'
+            }
+        }
         stage('Test') {
             steps {
                 sh 'pytest'

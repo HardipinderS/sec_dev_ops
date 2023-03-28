@@ -28,9 +28,11 @@ main.py
 6. Create a test case in the framework of your choice
 test_main.py
 7. Use Jenkins to create a repo check in trigger
-http://localhost:8080/job/mid_term_cyb_595/
+http://localhost:8080/job/mid_term/
+
 8. On checking create a trigger to compile 
 done
+
 9. If compile is unsuccessful then email the user and put the failure in bug tracker (bugzilla or mantis or github issues).
 
 10. if compile passes the run unit test and if that is successful email user un unit test passing
