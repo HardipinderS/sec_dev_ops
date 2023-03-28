@@ -1,15 +1,18 @@
 1. Create a Github Account (repository)
-https://github.com/HardipinderS/cybe_595_mid_term
+https://github.com/HardipinderS/sec_dev_ops
 <!-- http://localhost:7990/mvc/projects/MID/repos/cyb_595/browse -->
 2. Create a docker compose file and put it in the github account.
-https://github.com/HardipinderS/cyb_595_mid_term
+https://github.com/HardipinderS/sec_dev_ops/blob/master/Dockerfile
 <!-- http://localhost:7990/projects/MID/repos/cyb_595/browse/compose.yml -->
 3. Pull the docker compose file and build it. Push this container onto the github
-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
-docker login ghcr.io -u HardipinderS -p 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
-docker tag hardipinders/cybe_595_mid_term ghcr.io/hardipinders/cyb_595_mid_term:latest
-docker push ghcr.io/hardipinders/cyb_595_mid_term:latest
+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
+docker login ghcr.io -u HardipinderS -p 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
+docker tag mid_term-api ghcr.io/hardipinders/sec_dev_ops:latest
+docker push ghcr.io/hardipinders/sec_dev_ops:latest
 
+<!-- docker pull ghcr.io/hardipinders/sec_dev_op -->
+
+latest: digest: sha256:64dcaf77da927edb7dd42df0c3eda1833acd2e1838c08cc849283a29f42985b8 size: 4488
 <!-- cd E:\courses_csudh\cyb 595\mid_term
 git pull
 docker-compose up -d --build
