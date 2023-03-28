@@ -13,9 +13,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'ls'
-//                 sh 'cd /app'
-//                 sh 'python -m main.py'
+                sh 'cd /app'
+                sh 'python -m app/main.py'
             }
         }
     }
