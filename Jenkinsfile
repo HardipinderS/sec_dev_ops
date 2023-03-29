@@ -26,17 +26,15 @@ pipeline {
                                     -d '{"title": "$issue_title"}'
                                 """
                             }
-                            emailext (
-                                to: "hardipinder@duck.com",
-                                subject: "Compilation Failed in Job: $JOB_NAME",
-                                body: "The automated Compilation failed for Job: $JOB_NAME. Please investigate."
-                            )
+                            sh  "echo Tests failed! Sending email notification..."
+                            def emailBody = "${env.JOB_NAME} build #${env.BUILD_NUMBER} failed. See console output for more information."
+                            def subject = "${env.JOB_NAME} build #${env.BUILD_NUMBER} failed"
+                            emailext body: emailBody, subject: subject, to: 'hardipinder@duck.com', mimeType: 'text/html', attachLog: true
                         } else {
-                            emailext (
-                                to: "hardipinder@duck.com",
-                                subject: "Compilation Passed in Job: $JOB_NAME",
-                                body: "The automated Compilation passed for Job: $JOB_NAME. going for next step."
-                            )
+                            sh  "echo Tests passed! Sending email notification..."
+                            def emailBody = "${env.JOB_NAME} build #${env.BUILD_NUMBER} passed. See console output for more information."
+                            def subject = "${env.JOB_NAME} build #${env.BUILD_NUMBER} passed"
+                            emailext body: emailBody, subject: subject, to: 'hardipinder@duck.com', mimeType: 'text/html', attachLog: true
                         }
                     }
                 }
