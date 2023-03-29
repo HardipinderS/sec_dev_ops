@@ -66,7 +66,6 @@ pipeline {
                 }
             }
         }
-        }
         stage('Deploy') {
             steps {
                 timeout(time: 50, unit: 'SECONDS') {
