@@ -66,7 +66,6 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                {
                 sh 'scp deploy.sh ec2-user@$ec2-18-219-240-101.us-east-2.compute.amazonaws.com:~/'
                 sh 'ssh ec2-user@$ec2-18-219-240-101.us-east-2.compute.amazonaws.com "chmod +x deploy.sh"'
                 sh 'ssh ec2-user@$ec2-18-219-240-101.us-east-2.compute.amazonaws.com ./deploy.ssh'
@@ -76,4 +75,4 @@ pipeline {
             }
         }
     }
-}
+
