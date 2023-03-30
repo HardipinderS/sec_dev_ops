@@ -66,8 +66,11 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                timeout(time: 50, unit: 'SECONDS') {
-                sh "python app/main.py"
+                sh 'scp deploy.sh ec2-user@$ec2-18-219-240-101.us-east-2.compute.amazonaws.com:~/'
+                sh 'ssh ec2-user@$ec2-18-219-240-101.us-east-2.compute.amazonaws.com "chmod +x deploy.sh"'
+                sh 'ssh ec2-user@$ec2-18-219-240-101.us-east-2.compute.amazonaws.com ./deploy.ssh'
+                // timeout(time: 50, unit: 'SECONDS') {
+                // sh "python app/main.py"
                 }
             }
         }
