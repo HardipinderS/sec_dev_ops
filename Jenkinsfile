@@ -64,16 +64,48 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('Security checks') {
             steps {
-                sh 'ls -l'
-                sh 'scp deploy.sh ec2-user@$18.219.240.101:~/'
-                sh 'ssh ec2-user@$18.219.240.101 "chmod +x deploy.sh"'
-                sh 'ssh ec2-user@$18.219.240.101 ./deploy.ssh'
-                // timeout(time: 50, unit: 'SECONDS') {
-                // sh "python app/main.py"
+                // Run Bandit security check and save result to variable
+                script {
+                    bandit_result = sh (
+                        script: 'python -m bandit -r app/main.py -ll',
+                        returnStdout: true
+                    )
                 }
+                // Run PyLint security check and save result to variable
+                script {
+                    pylint_result = sh (
+                        script: 'python -m pylint app/',
+                        returnStdout: true
+                    )
+                }
+                // Run Flake8 security check and save result to variable
+                script {
+                    flake8_result = sh (
+                        script: 'python -m flake8 app/',
+                        returnStdout: true
+                    )
+                }
+                // Send email with the results using emailext plugin
+                emailext (
+                    to: 'hardipinder@duck.com',
+                    subject: 'Security check results',
+                    body: "Bandit result: \n${bandit_result}\n\nPyLint result: \n${pylint_result}\n\nFlake8 result: \n${flake8_result}",
+                    mimeType: 'text/plain'
+                )
             }
+        }
+        // stage('Deploy') {
+        //     steps {
+        //         sh 'ls -l'
+        //         sh 'scp deploy.sh ec2-user@$18.219.240.101:~/'
+        //         sh 'ssh ec2-user@$18.219.240.101 "chmod +x deploy.sh"'
+        //         sh 'ssh ec2-user@$18.219.240.101 ./deploy.ssh'
+        //         // timeout(time: 50, unit: 'SECONDS') {
+        //         // sh "python app/main.py"
+        //         }
+        //     }
         }
     }
 
