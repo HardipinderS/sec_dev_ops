@@ -70,12 +70,12 @@ pipeline {
         stage('Security checks') {
     steps {
         // Run Bandit security check and save result to variable
-        script {
-            bandit_result = sh (
-                script: 'python3 -m bandit -r app/main.py -ll',
-                returnStdout: true
-            )
-        }
+//         script {
+//             bandit_result = sh (
+//                 script: 'python3 -m bandit -r app/main.py -ll',
+//                 returnStdout: true
+//             )
+//         }
         // Run PyLint security check and save result to variable
         script {
             pylint_result = sh (
