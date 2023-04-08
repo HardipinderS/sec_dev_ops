@@ -98,8 +98,12 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+                script {
+                    docker.build("ghcr.io/hardipinders/sec_dev_ops:latest")
+                    docker.run("-p 8000:8000 ghcr.io/hardipinders/sec_dev_ops:latest")
+                }
 //                 sh 'docker pull ghcr.io/hardipinders/sec_dev_ops:latest'
-                sh 'docker build -t hello-world .'
+//                 sh 'docker build -t hello-world .'
             }
         }
         // stage('Deploy') {
