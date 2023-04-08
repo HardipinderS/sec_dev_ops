@@ -1,4 +1,6 @@
 def bandit_result
+def pylint_result
+def flake8_result
 pipeline {
     agent any
     stages {
