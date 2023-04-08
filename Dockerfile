@@ -1,11 +1,31 @@
+# Set the base image
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the requirements file and install the dependencies
+COPY ./requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the source code
+COPY ./app /app
+
+# Expose the port on which the app will run
+EXPOSE 80
+
+# Start the app
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+
+
 # syntax = docker/dockerfile:1.4
 
-FROM ghcr.io/hardipinders/sec_dev_ops
-COPY ./app ./app
-WORKDIR ./app
-RUN pip install -r requirements.txt
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+# FROM ghcr.io/hardipinders/sec_dev_ops
+# COPY ./app ./app
+# WORKDIR ./app
+# RUN pip install -r requirements.txt
+# ENTRYPOINT ["python"]
+# CMD ["app.py"]
 # WORKDIR /.
 
 # COPY requirements.txt ./
