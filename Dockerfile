@@ -2,7 +2,7 @@
 
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9-slim AS builder
 COPY ./app ./app
-WORKDIR /app
+WORKDIR /.
 RUN pip install -r requirements.txt
 ENTRYPOINT ["python"]
 CMD ["app.py"]
