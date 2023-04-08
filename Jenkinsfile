@@ -66,41 +66,42 @@ pipeline {
             }
         }
         stage('Security checks') {
-  post {
-    always {
-      // Send email with the results using emailext plugin
-      emailext (
-        to: 'hardipinder@duck.com',
-        subject: 'Security check results',
-        body: "Bandit result: \n${bandit_result}\n\nPyLint result: \n${pylint_result}\n\nFlake8 result: \n${flake8_result}",
-        mimeType: 'text/plain'
-      )
+    steps {
+        // Run Bandit security check and save result to variable
+        script {
+            bandit_result = sh (
+                script: 'python3 -m bandit -r app/main.py -ll',
+                returnStdout: true
+            )
+        }
+        // Run PyLint security check and save result to variable
+        script {
+            pylint_result = sh (
+                script: 'python3 -m pylint app/',
+                returnStdout: true
+            )
+        }
+        // Run Flake8 security check and save result to variable
+        script {
+            flake8_result = sh (
+                script: 'python3 -m flake8 app/',
+                returnStdout: true
+            )
+        }
     }
-  }
-  steps {
-    // Run Bandit security check and save result to variable
-    script {
-      bandit_result = sh (
-        script: 'python3 -m bandit -r app/main.py -ll',
-        returnStdout: true
-      )
+    post {
+        always {
+            // Send email with the results using emailext plugin
+            emailext (
+                to: 'hardipinder@duck.com',
+                subject: 'Security check results',
+                body: "Bandit result: \n${bandit_result}\n\nPyLint result: \n${pylint_result}\n\nFlake8 result: \n${flake8_result}",
+                mimeType: 'text/plain'
+            )
+        }
     }
-    // Run PyLint security check and save result to variable
-    script {
-      pylint_result = sh (
-        script: 'python3 -m pylint app/',
-        returnStdout: true
-      )
-    }
-    // Run Flake8 security check and save result to variable
-    script {
-      flake8_result = sh (
-        script: 'python3 -m flake8 app/',
-        returnStdout: true
-      )
-    }
-  }
 }
+
         stage('Deploy') {
             steps {
                 sh "sudo docker build -t my-fastapi-app ."
