@@ -98,7 +98,7 @@ pipeline {
 //         }
         stage('Deploy') {
             steps {
-                sh "sudo docker build -t hello-world ."
+                sh "sudo docker build -t ghcr.io/hardipinders/sec_dev_ops ."
                 sh "sudo docker run -p 8000:8000 --name hello-world -d hello-world"
 //                 script {
 //                     docker.build("ghcr.io/hardipinders/sec_dev_ops:latest")
