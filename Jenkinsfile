@@ -42,7 +42,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'pythpn3 -m pytest'
+                sh 'python3 -m pytest'
             }
             post {
                 always {
