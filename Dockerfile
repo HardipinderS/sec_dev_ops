@@ -15,7 +15,7 @@ COPY ./app /app
 EXPOSE 8000
 
 # Start the app
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["python3", "main.py"]
 
 
 # syntax = docker/dockerfile:1.4
