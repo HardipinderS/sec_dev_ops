@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Compile') {
             steps {
-                sh 'python -m py_compile app/main.py'
+                sh 'python3 -m py_compile app/main.py'
                 sh 'find . -name "*.pyc"'
             }
             post {
@@ -69,21 +69,21 @@ pipeline {
                 // Run Bandit security check and save result to variable
                 script {
                     bandit_result = sh (
-                        script: 'python -m bandit -r app/main.py -ll',
+                        script: 'python3 -m bandit -r app/main.py -ll',
                         returnStdout: true
                     )
                 }
                 // Run PyLint security check and save result to variable
                 script {
                     pylint_result = sh (
-                        script: 'python -m pylint app/',
+                        script: 'python3 -m pylint app/',
                         returnStdout: true
                     )
                 }
                 // Run Flake8 security check and save result to variable
                 script {
                     flake8_result = sh (
-                        script: 'python -m flake8 app/',
+                        script: 'python3 -m flake8 app/',
                         returnStdout: true
                     )
                 }
