@@ -1,26 +1,30 @@
 # syntax = docker/dockerfile:1.4
 
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9-slim AS builder
+COPY . /app
+WORKDIR /app
+RUN pip install -r requirements.txt
+ENTRYPOINT ["python"]
+CMD ["app.py"]
+# WORKDIR /.
 
-WORKDIR /.
+# COPY requirements.txt ./
+# RUN --mount=type=cache,target=/root/.cache/pip \
+#     pip install -r requirements.txt
 
-COPY requirements.txt ./
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install -r requirements.txt
+# COPY ./app ./app
 
-COPY ./app ./app
-
-FROM builder as dev-envs
+# FROM builder as dev-envs
 
 # RUN <<EOF
 # yum update
 # yum install -y --no-install-recommends git
 # EOF
 
-RUN <<EOF
-useradd -s /bin/bash -m vscode
-groupadd docker
-usermod -aG docker vscode
-EOF
-# install Docker tools (cli, buildx, compose)
-COPY --from=gloursdocker/docker / /
+# RUN <<EOF
+# useradd -s /bin/bash -m vscode
+# groupadd docker
+# usermod -aG docker vscode
+# EOF
+# # install Docker tools (cli, buildx, compose)
+# COPY --from=gloursdocker/docker / /
