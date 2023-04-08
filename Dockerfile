@@ -12,10 +12,10 @@ COPY ./app ./app
 
 FROM builder as dev-envs
 
-RUN <<EOF
-yum update
-yum install -y --no-install-recommends git
-EOF
+# RUN <<EOF
+# yum update
+# yum install -y --no-install-recommends git
+# EOF
 
 RUN <<EOF
 useradd -s /bin/bash -m vscode
