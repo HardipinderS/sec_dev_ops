@@ -96,6 +96,12 @@ pipeline {
                 )
             }
         }
+        stage('Deploy') {
+            steps {
+                sh 'docker pull ghcr.io/hardipinders/sec_dev_ops:latest'
+                sh 'docker build ghcr.io/hardipinders/sec_dev_ops:latest'
+            }
+        }
         // stage('Deploy') {
         //     steps {
         //         sh 'ls -l'
