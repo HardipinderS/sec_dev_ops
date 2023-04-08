@@ -98,8 +98,8 @@ pipeline {
 //         }
         stage('Deploy') {
             steps {
-                sh 'docker pull ghcr.io/hardipinders/sec_dev_ops:latest'
-                sh 'sudo docker build ghcr.io/hardipinders/sec_dev_ops:latest'
+//                 sh 'docker pull ghcr.io/hardipinders/sec_dev_ops:latest'
+                sh 'docker build -t ghcr.io/hardipinders/sec_dev_ops:latest .'
             }
         }
         // stage('Deploy') {
