@@ -1,3 +1,4 @@
+def bandit_result
 pipeline {
     agent any
     stages {
